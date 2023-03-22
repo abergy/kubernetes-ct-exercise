@@ -1,0 +1,22 @@
+persistence:
+  enabled: true
+  name: data
+  accessMode: ReadWriteOnce
+  size: 128Mi
+  path: /data
+  annotations: {}
+
+certResolvers:
+  letsencrypt:
+    email: mailalex@posteo.de
+    tlsChallenge: true
+    httpChallenge:
+      entryPoint: "web"
+    storage: /data/acme.json
+
+ports:
+  websecure:
+    tls:
+      certResolver: "letsencrypt"
+  web:
+    redirectTo: websecure

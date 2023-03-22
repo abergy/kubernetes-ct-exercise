@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: wordpress-ingress
+  namespace: frontend
+spec:
+  entryPoints:
+    - websecure # vorher: web
+  routes:
+      # vorher: match: PathPrefix(`/`)
+    - match: Host(`n1.abergy.de`) || Host(`n2.abergy.de`) || Host(`n3.abergy.de`)
+      kind: Rule
+      services:
+        - name: wp-external
+          port: 80
